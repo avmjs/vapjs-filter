@@ -1,32 +1,32 @@
-## ethjs-filter
+## vapjs-filter
 
 <div>
   <!-- Dependency Status -->
-  <a href="https://david-dm.org/ethjs/ethjs-filter">
-    <img src="https://david-dm.org/ethjs/ethjs-filter.svg"
+  <a href="https://david-dm.org/vapjs/vapjs-filter">
+    <img src="https://david-dm.org/vapjs/vapjs-filter.svg"
     alt="Dependency Status" />
   </a>
 
   <!-- devDependency Status -->
-  <a href="https://david-dm.org/ethjs/ethjs-filter#info=devDependencies">
-    <img src="https://david-dm.org/ethjs/ethjs-filter/dev-status.svg" alt="devDependency Status" />
+  <a href="https://david-dm.org/vapjs/vapjs-filter#info=devDependencies">
+    <img src="https://david-dm.org/vapjs/vapjs-filter/dev-status.svg" alt="devDependency Status" />
   </a>
 
   <!-- Build Status -->
-  <a href="https://travis-ci.org/ethjs/ethjs-filter">
-    <img src="https://travis-ci.org/ethjs/ethjs-filter.svg"
+  <a href="https://travis-ci.org/vapjs/vapjs-filter">
+    <img src="https://travis-ci.org/vapjs/vapjs-filter.svg"
     alt="Build Status" />
   </a>
 
   <!-- NPM Version -->
-  <a href="https://www.npmjs.org/package/ethjs-filter">
-    <img src="http://img.shields.io/npm/v/ethjs-filter.svg"
+  <a href="https://www.npmjs.org/package/vapjs-filter">
+    <img src="http://img.shields.io/npm/v/vapjs-filter.svg"
     alt="NPM version" />
   </a>
 
   <!-- Test Coverage -->
-  <a href="https://coveralls.io/r/ethjs/ethjs-filter">
-    <img src="https://coveralls.io/repos/github/ethjs/ethjs-filter/badge.svg" alt="Test Coverage" />
+  <a href="https://coveralls.io/r/vapjs/vapjs-filter">
+    <img src="https://coveralls.io/repos/github/vapjs/vapjs-filter/badge.svg" alt="Test Coverage" />
   </a>
 
   <!-- Javascript Style -->
@@ -37,22 +37,22 @@
 
 <br />
 
-A simple module for handling Ethereum RPC filters that require watching.
+A simple module for handling Vapory RPC filters that require watching.
 
 ## Install
 
 ```
-npm install --save ethjs-filter
+npm install --save vapjs-filter
 ```
 
 ## Usage
 
 ```js
-const HttpProvider = require('ethjs-provider-http');
-const Eth = require('ethjs-query');
-const EthFilter = require('ethjs-filter');
-const eth = new Eth(new HttpProvider('http://localhost:8545'));
-const filters = new EthFilter(eth);
+const HttpProvider = require('vapjs-provider-http');
+const Vap = require('vapjs-query');
+const VapFilter = require('vapjs-filter');
+const vap = new Vap(new HttpProvider('http://localhost:8545'));
+const filters = new VapFilter(vap);
 
 
 const filter = new filters.Filter({ delay: 300 })
@@ -102,7 +102,7 @@ filter.uninstall()
 
 ## About
 
-A simple module to help manage Ethereum RPC filters that supports both callbacks and promises.
+A simple module to help manage Vapory RPC filters that supports both callbacks and promises.
 
 Note, `.watch` promises only fire once (as Promise standards specify), and will only fire when the watcher result has a length greater than zero (i.e. logs are present).
 
@@ -120,32 +120,32 @@ Please help better the ecosystem by submitting issues and pull requests to defau
 
 ## Guides
 
-You'll find more detailed information on using `ethjs-filter` and tailoring it to your needs in our guides:
+You'll find more detailed information on using `vapjs-filter` and tailoring it to your needs in our guides:
 
 - [User guide](docs/user-guide.md) - Usage, configuration, FAQ and complementary tools.
-- [Developer guide](docs/developer-guide.md) - Contributing to `ethjs-filter` and writing your own code and coverage.
+- [Developer guide](docs/developer-guide.md) - Contributing to `vapjs-filter` and writing your own code and coverage.
 
 ## Help out
 
 There is always a lot of work to do, and will have many rules to maintain. So please help out in any way that you can:
 
-- Create, enhance, and debug ethjs rules (see our guide to ["Working on rules"](./github/CONTRIBUTING.md)).
+- Create, enhance, and debug vapjs rules (see our guide to ["Working on rules"](./github/CONTRIBUTING.md)).
 - Improve documentation.
 - Chime in on any open issue or pull request.
-- Open new issues about your ideas for making `ethjs-filter` better, and pull requests to show us how your idea works.
+- Open new issues about your ideas for making `vapjs-filter` better, and pull requests to show us how your idea works.
 - Add new tests to *absolutely anything*.
 - Create or contribute to ecosystem tools, like modules for encoding or contracts.
 - Spread the word.
 
 Please consult our [Code of Conduct](CODE_OF_CONDUCT.md) docs before helping out.
 
-We communicate via [issues](https://github.com/ethjs/ethjs-filter/issues) and [pull requests](https://github.com/ethjs/ethjs-filter/pulls).
+We communicate via [issues](https://github.com/vapjs/vapjs-filter/issues) and [pull requests](https://github.com/vapjs/vapjs-filter/pulls).
 
 ## Important documents
 
 - [Changelog](CHANGELOG.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
-- [License](https://raw.githubusercontent.com/ethjs/ethjs-filter/master/LICENSE)
+- [License](https://raw.githubusercontent.com/vapjs/vapjs-filter/master/LICENSE)
 
 ## Licence
 

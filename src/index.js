@@ -24,7 +24,7 @@ function constructFilter(filterName, query) {
                 }
               });
             } catch (decodingErrorMesage) {
-              decodingError = new Error(`[ethjs-filter] while decoding filter change event data from RPC '${JSON.stringify(decodedChangeResults)}': ${decodingErrorMesage}`);
+              decodingError = new Error(`[vapjs-filter] while decoding filter change event data from RPC '${JSON.stringify(decodedChangeResults)}': ${decodingErrorMesage}`);
             }
           }
 
@@ -130,23 +130,23 @@ function constructFilter(filterName, query) {
 }
 
 /**
- * EthFilter constructor, intakes a query, helps manage filter event polling
+ * VapFilter constructor, intakes a query, helps manage filter event polling
  *
- * @method EthFilter
- * @param {Object} query the `ethjs-query` or `eth-query` object
- * @returns {Object} output an EthFilter instance
+ * @method VapFilter
+ * @param {Object} query the `vapjs-query` or `vap-query` object
+ * @returns {Object} output an VapFilter instance
  * @throws error if new is not used
  */
 
-function EthFilter(query) {
+function VapFilter(query) {
   const self = this;
-  if (!(self instanceof EthFilter)) { throw new Error('the EthFilter object must be instantiated with `new` flag.. (e.g. `const filters = new EthFilter(query);`)'); }
-  if (typeof query !== 'object') { throw new Error('the EthFilter object must be instantiated with an EthQuery instance (e.g. `const filters = new EthFilter(new EthQuery(provider));`). See github.com/ethjs/ethjs-query for more details..'); }
+  if (!(self instanceof VapFilter)) { throw new Error('the VapFilter object must be instantiated with `new` flag.. (e.g. `const filters = new VapFilter(query);`)'); }
+  if (typeof query !== 'object') { throw new Error('the VapFilter object must be instantiated with an VapQuery instance (e.g. `const filters = new VapFilter(new VapQuery(provider));`). See github.com/vapjs/vapjs-query for more details..'); }
 
   self.Filter = constructFilter('Filter', query);
   self.BlockFilter = constructFilter('BlockFilter', query);
   self.PendingTransactionFilter = constructFilter('PendingTransactionFilter', query);
 }
 
-// export EthFilter
-module.exports = EthFilter;
+// export VapFilter
+module.exports = VapFilter;

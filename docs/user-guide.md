@@ -1,21 +1,21 @@
 # User Guide
 
-All information for developers using `ethjs-filter` should consult this document.
+All information for developers using `vapjs-filter` should consult this document.
 
 ## Install
 
 ```
-npm install --save ethjs-filter
+npm install --save vapjs-filter
 ```
 
 ## Usage
 
 ```js
-const HttpProvider = require('ethjs-provider-http');
-const Eth = require('ethjs-query');
-const EthFilter = require('ethjs-filter');
-const eth = new Eth(new HttpProvider('http://localhost:8545'));
-const filters = new EthFilter(eth);
+const HttpProvider = require('vapjs-provider-http');
+const Vap = require('vapjs-query');
+const VapFilter = require('vapjs-filter');
+const vap = new Vap(new HttpProvider('http://localhost:8545'));
+const filters = new VapFilter(vap);
 
 
 const filter = new filters.Filter({ delay: 300 })
@@ -73,7 +73,7 @@ Each filter object starts a single interval to poll for new changes on the filte
 
 ## Using the `.new` method
 
-The filter `.new` method will install the filter on the `Ethereum` node. This is where you can specify the `eth_newFilter` param object (i.e. `{ toBlock: 5, fromBlock: 'latest' }` etc.).
+The filter `.new` method will install the filter on the `Vapory` node. This is where you can specify the `vap_newFilter` param object (i.e. `{ toBlock: 5, fromBlock: 'latest' }` etc.).
 
 ## Using the `.at` method
 
@@ -85,25 +85,25 @@ Uninstalling the filter will clear the filter interval and uninstall the fitler 
 
 ## Browser Builds
 
-`ethjs` provides production distributions for all of its modules that are ready for use in the browser right away. Simply include either `dist/ethjs-filter.js` or `dist/ethjs-filter.min.js` directly into an HTML file to start using this module. Note, an `EthFilter` object is made available globally.
+`vapjs` provides production distributions for all of its modules that are ready for use in the browser right away. Simply include either `dist/vapjs-filter.js` or `dist/vapjs-filter.min.js` directly into an HTML file to start using this module. Note, an `VapFilter` object is made available globally.
 
 ```html
-<script type="text/javascript" src="ethjs-filter.min.js"></script>
+<script type="text/javascript" src="vapjs-filter.min.js"></script>
 <script type="text/javascript">
-var filter = new EthFilter(...);
+var filter = new VapFilter(...);
 </script>
 ```
 
-Note, even though `ethjs` should have transformed and polyfilled most of the requirements to run this module across most modern browsers. You may want to look at an additional polyfill for extra support.
+Note, even though `vapjs` should have transformed and polyfilled most of the requirements to run this module across most modern browsers. You may want to look at an additional polyfill for extra support.
 
 Use a polyfill service such as `Polyfill.io` to ensure complete cross-browser support:
 https://polyfill.io/
 
 ## Other Awesome Modules, Tools and Frameworks
 
- - [web3.js](https://github.com/ethereum/web3.js) -- the original Ethereum swiss army knife **Ethereum Foundation**
- - [ethereumjs](https://github.com/ethereumjs) -- critical ethereumjs infrastructure **Ethereum Foundation**
- - [browser-solidity](https://ethereum.github.io/browser-solidity) -- an in browser Solidity IDE **Ethereum Foundation**
+ - [web3.js](https://github.com/vaporyco/web3.js) -- the original Vapory swiss army knife **Vapory Foundation**
+ - [vaporyjs](https://github.com/vaporycojs) -- critical vaporyjs infrastructure **Vapory Foundation**
+ - [browser-solidity](https://vapory.github.io/browser-solidity) -- an in browser Solidity IDE **Vapory Foundation**
  - [wafr](https://github.com/silentcicero/wafr) -- a super simple Solidity testing framework
  - [truffle](https://github.com/ConsenSys/truffle) -- a solidity/js dApp framework
  - [embark](https://github.com/iurimatias/embark-framework) -- a solidity/js dApp framework
@@ -111,8 +111,8 @@ https://polyfill.io/
  - [chaitherium](https://github.com/SafeMarket/chaithereum) -- a JS web3 unit testing framework
  - [contest](https://github.com/DigixGlobal/contest) -- a JS testing framework for contracts
 
-## Our Relationship with Ethereum & EthereumJS
+## Our Relationship with Vapory & VaporyJS
 
- We would like to mention that we are not in any way affiliated with the Ethereum Foundation or `ethereumjs`. However, we love the work they do and work with them often to make Ethereum great! Our aim is to support the Ethereum ecosystem with a policy of diversity, modularity, simplicity, transparency, clarity, optimization and extensibility.
+ We would like to mention that we are not in any way affiliated with the Vapory Foundation or `vaporyjs`. However, we love the work they do and work with them often to make Vapory great! Our aim is to support the Vapory ecosystem with a policy of diversity, modularity, simplicity, transparency, clarity, optimization and extensibility.
 
- Many of our modules use code from `web3.js` and the `ethereumjs-` repositories. We thank the authors where we can in the relevant repositories. We use their code carefully, and make sure all test coverage is ported over and where possible, expanded on.
+ Many of our modules use code from `web3.js` and the `vaporyjs-` repositories. We thank the authors where we can in the relevant repositories. We use their code carefully, and make sure all test coverage is ported over and where possible, expanded on.

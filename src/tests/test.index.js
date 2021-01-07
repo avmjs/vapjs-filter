@@ -1,17 +1,17 @@
-const TestRPC = require('ethereumjs-testrpc');
+const TestRPC = require('vaporyjs-testrpc');
 const provider = TestRPC.provider();
-const Eth = require('ethjs-query');
-const EthFilter = require('../index.js');
+const Vap = require('vapjs-query');
+const VapFilter = require('../index.js');
 const assert = require('chai').assert;
-const sha3 = require('ethjs-sha3');  // eslint-disable-line
-const abi = require('ethjs-abi');    // eslint-disable-line
+const sha3 = require('vapjs-sha3');  // eslint-disable-line
+const abi = require('vapjs-abi');    // eslint-disable-line
 console.warn = function warn() {}; // eslint-disable-line
 
-describe('EthFilter', () => {
+describe('VapFilter', () => {
   describe('constructor', () => {
     it('should construct properly', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
       assert.equal(typeof filters.Filter, 'function');
       assert.equal(typeof filters.BlockFilter, 'function');
@@ -20,21 +20,21 @@ describe('EthFilter', () => {
 
     it('should throw under bad construction', () => {
       assert.throws(() => {
-        new EthFilter(4354); // eslint-disable-line
+        new VapFilter(4354); // eslint-disable-line
       }, Error);
       assert.throws(() => {
-        EthFilter({}); // eslint-disable-line
+        VapFilter({}); // eslint-disable-line
       }, Error);
       assert.throws(() => {
-        EthFilter(); // eslint-disable-line
+        VapFilter(); // eslint-disable-line
       }, Error);
     });
   });
 
   describe('Filter', () => {
     it('should construct the Filter object properly', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
 
       assert.equal(typeof filter, 'object');
@@ -45,24 +45,24 @@ describe('EthFilter', () => {
     });
 
     it('should set filter id properly with the .at method', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.at(7);
       assert.equal(filter.filterId, 7);
     });
 
     it('setup filter with custom delay', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter({ delay: 400 });
       filter.at(7);
       assert.equal(filter.options.delay, 400);
     });
 
     it('should setup a new filter and uninstall with callbacks', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.new((error, result) => {
         assert.equal(error, null);
@@ -79,8 +79,8 @@ describe('EthFilter', () => {
     });
 
     it('should setup a new filter and uninstall with callbacks and custom object', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.new({ fromBlock: 0 }, (error, result) => {
         assert.equal(error, null);
@@ -105,7 +105,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_newFilter') {
+        if (payload.method === 'vap_newFilter') {
           const fakeEventLog = {
             id: payload.id,
             jsonrpc: payload.jsonrpc,
@@ -119,8 +119,8 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.new({ fromBlock: 0 }, (error, result) => {
         assert.equal(typeof error, 'object');
@@ -139,7 +139,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_uninstallFilter') {
+        if (payload.method === 'vap_uninstallFilter') {
           const fakeEventLog = {
             id: payload.id,
             jsonrpc: payload.jsonrpc,
@@ -153,8 +153,8 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.new({ fromBlock: 0 }, (error, result) => {
         assert.equal(error, null);
@@ -179,7 +179,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_uninstallFilter') {
+        if (payload.method === 'vap_uninstallFilter') {
           const fakeEventLog = {
             id: payload.id,
             jsonrpc: payload.jsonrpc,
@@ -193,8 +193,8 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
       const filter = new filters.BlockFilter();
       filter.new({ fromBlock: 0 }, (error, result) => {
         assert.equal(error, null);
@@ -211,8 +211,8 @@ describe('EthFilter', () => {
     });
 
     it('should setup a new filter and uninstall with promise and custom object', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter();
       filter.new({ fromBlock: 0 })
       .catch((error) => {
@@ -243,7 +243,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_getFilterChanges') {
+        if (payload.method === 'vap_getFilterChanges') {
           callback(null, { result: [{
             logIndex: '0x0',
             blockNumber: '0x1b4',
@@ -259,10 +259,10 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter({
@@ -289,10 +289,10 @@ describe('EthFilter', () => {
     });
 
     it('Filter watch and stopWatching should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter();
@@ -313,7 +313,7 @@ describe('EthFilter', () => {
             done();
           }, 1400);
 
-          eth.sendTransaction({
+          vap.sendTransaction({
             from: accounts[0],
             to: accounts[1],
             value: 3000,
@@ -328,10 +328,10 @@ describe('EthFilter', () => {
     });
 
     it('Filter watch and uninstall should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter();
@@ -357,7 +357,7 @@ describe('EthFilter', () => {
             });
           }, 1400);
 
-          eth.sendTransaction({
+          vap.sendTransaction({
             from: accounts[0],
             to: accounts[1],
             value: 3000,
@@ -380,7 +380,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_getFilterChanges') {
+        if (payload.method === 'vap_getFilterChanges') {
           callback(null, { result: [{
             logIndex: '0x0',
             blockNumber: '0x1b4',
@@ -396,10 +396,10 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter();
@@ -427,7 +427,7 @@ describe('EthFilter', () => {
             });
           }, 1400);
 
-          eth.sendTransaction({
+          vap.sendTransaction({
             from: accounts[0],
             to: accounts[1],
             value: 3000,
@@ -450,7 +450,7 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_getFilterChanges') {
+        if (payload.method === 'vap_getFilterChanges') {
           callback(null, { result: [{
             logIndex: '0x0',
             blockNumber: '0x1b4',
@@ -466,10 +466,10 @@ describe('EthFilter', () => {
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter();
@@ -506,17 +506,17 @@ describe('EthFilter', () => {
       FakeProvider.prototype.sendAsync = function sendAsync(payload, callback) {
         const self = this;
 
-        if (payload.method === 'eth_getFilterChanges') {
+        if (payload.method === 'vap_getFilterChanges') {
           callback(null, { error: 'invalid filter data' });
         } else {
           self.provider.sendAsync(payload, callback);
         }
       };
 
-      const eth = new Eth(new FakeProvider());
-      const filters = new EthFilter(eth);
+      const vap = new Vap(new FakeProvider());
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter();
