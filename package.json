@@ -1,5 +1,6 @@
 {
   "name": "vapjs-filter",
+  "namespace": "vapjs",
   "version": "0.1.5",
   "description": "A simple filter handler for the Vapory RPC layer.",
   "main": "lib/index.js",
