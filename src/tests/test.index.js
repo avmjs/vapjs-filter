@@ -3,7 +3,7 @@ const provider = TestRPC.provider();
 const Vap = require('vapjs-query');
 const VapFilter = require('../index.js');
 const assert = require('chai').assert;
-const sha3 = require('vapjs-sha3');
+const sha3 = require('vjs-sha3');
 const abi = require('vapjs-abi');
 console.warn = function warn() {}; // eslint-disable-line
 
