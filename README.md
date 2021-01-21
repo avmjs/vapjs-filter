@@ -1,26 +1,26 @@
-## ethjs-filter
+## vapjs-filter
 
 <div>
   <!-- Dependency Status -->
-  <a href="https://david-dm.org/SilentCicero/ethjs-filter">
-    <img src="https://david-dm.org/SilentCicero/ethjs-filter.svg"
+  <a href="https://david-dm.org/vapjs/vapjs-filter">
+    <img src="https://david-dm.org/vapjs/vapjs-filter.svg"
     alt="Dependency Status" />
   </a>
 
   <!-- devDependency Status -->
-  <a href="https://david-dm.org/SilentCicero/ethjs-filter#info=devDependencies">
-    <img src="https://david-dm.org/SilentCicero/ethjs-filter/dev-status.svg" alt="devDependency Status" />
+  <a href="https://david-dm.org/vapjs/vapjs-filter#info=devDependencies">
+    <img src="https://david-dm.org/vapjs/vapjs-filter/dev-status.svg" alt="devDependency Status" />
   </a>
 
   <!-- Build Status -->
-  <a href="https://travis-ci.org/SilentCicero/ethjs-filter">
-    <img src="https://travis-ci.org/SilentCicero/ethjs-filter.svg"
+  <a href="https://travis-ci.org/vapjs/vapjs-filter">
+    <img src="https://travis-ci.org/vapjs/vapjs-filter.svg"
     alt="Build Status" />
   </a>
 
   <!-- NPM Version -->
-  <a href="https://www.npmjs.org/package/ethjs-filter">
-    <img src="http://img.shields.io/npm/v/ethjs-filter.svg"
+  <a href="https://www.npmjs.org/package/vapjs-filter">
+    <img src="http://img.shields.io/npm/v/vapjs-filter.svg"
     alt="NPM version" />
   </a>
 
@@ -32,21 +32,21 @@
 
 <br />
 
-A simple wrapper around the `eth-query` module with formatting for numbers, hex value and data structures.
+A simple wrapper around the `vap-query` module with formatting for numbers, hex value and data structures.
 
 ## Install
 
 ```
-npm install --save ethjs-filter
+npm install --save vapjs-filter
 ```
 
 ## Usage
 
 ```js
-const Eth = require('ethjs-query');
-const EthFilter = require('ethjs-filter');
-const eth = new Eth(providerObject);
-const filers = new EthFilter(eth);
+const Vap = require('vapjs-query');
+const VapFilter = require('vapjs-filter');
+const vap = new Vap(providerObject);
+const filers = new VapFilter(vap);
 
 // new filter
 const filter = new filers.Filter({}, cb); // optional callback
@@ -81,7 +81,7 @@ filter.stopWatching();
 
 ## About
 
-A simple module to help manage filters that require watching for `getFilterChange`. This module relies on the `ethjs-query` module to be supplied. Watching happens with polling, via a single `setInterval` with a `delay` set by default to `300` milliseconds.
+A simple module to help manage filters that require watching for `getFilterChange`. This module relies on the `vapjs-query` module to be supplied. Watching happens with polling, via a single `setInterval` with a `delay` set by default to `300` milliseconds.
 
 Each filter has a single interval that can be stopped. `stopWatching` clears the `interval` and uninstalls the filter.
 
@@ -97,7 +97,7 @@ PendingTransactionFilter ([, callback])
 
 ## Contributing
 
-Please help better the ecosystem by submitting issues and pull requests to default. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBigNumberB linting standard. Please read more about contributing to `ethjs-filter` in the `CONTRIBUTING.md`.
+Please help better the ecosystem by submitting issues and pull requests to default. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBigNumberB linting standard. Please read more about contributing to `vapjs-filter` in the `CONTRIBUTING.md`.
 
 <!--
 ## Guides
@@ -122,13 +122,13 @@ There is always a lot of work to do, and will have many rules to maintain. So pl
 
 Please consult our [Code of Conduct](CODE_OF_CONDUCT.md) docs before helping out.
 
-We communicate via [issues](https://github.com/SilentCicero/ethjs-filter/issues) and [pull requests](https://github.com/SilentCicero/ethjs-filter/pulls).
+We communicate via [issues](https://github.com/vapjs/vapjs-filter/issues) and [pull requests](https://github.com/vapjs/vapjs-filter/pulls).
 
 ## Important documents
 
 - [Changelog](CHANGELOG.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
-- [License](https://raw.githubusercontent.com/SilentCicero/ethjs-filter/master/LICENSE)
+- [License](https://raw.githubusercontent.com/vapjs/vapjs-filter/master/LICENSE)
 
 ## Licence
 

@@ -65,11 +65,11 @@ function constructFilter(filterName, query) {
   return filter;
 }
 
-function EthFilter(query) {
+function VapFilter(query) {
   const self = this;
   self.Filter = constructFilter('Filter', query);
   self.BlockFilter = constructFilter('BlockFilter', query);
   self.PendingTransactionFilter = constructFilter('PendingTransactionFilter', query);
 }
 
-module.exports = EthFilter;
+module.exports = VapFilter;

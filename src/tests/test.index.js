@@ -1,26 +1,26 @@
-const TestRPC = require('ethereumjs-testrpc');
+const TestRPC = require('vaporyjs-testrpc');
 const provider = TestRPC.provider();
-const Eth = require('ethjs-query');
-const EthFilter = require('../index.js');
+const Vap = require('vapjs-query');
+const VapFilter = require('../index.js');
 const assert = require('chai').assert;
-const sha3 = require('ethjs-sha3');
-const abi = require('ethjs-abi');
+const sha3 = require('vapjs-sha3');
+const abi = require('vapjs-abi');
 console.warn = function warn() {}; // eslint-disable-line
 
-describe('EthFilter', () => {
+describe('VapFilter', () => {
   describe('functionality testing', () => {
     it('should construct properly', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
       assert.equal(typeof filters.Filter, 'function');
       assert.equal(typeof filters.Filter, 'function');
       assert.equal(typeof filters.Filter, 'function');
     });
 
-    it('should construct Filter eth_newFilter properly with callback', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct Filter vap_newFilter properly with callback', (done) => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
       const filter = new filters.Filter({}, (error, result) => {
         assert.equal(error, null);
@@ -34,18 +34,18 @@ describe('EthFilter', () => {
       assert.equal(typeof filter.stopWatching, 'function');
     });
 
-    it('should construct Filter eth_newFilter properly without callback', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct Filter vap_newFilter properly without callback', () => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.Filter({});
       assert.notEqual(typeof filter.filterId, 'undefined');
       assert.equal(typeof filter.watch, 'function');
       assert.equal(typeof filter.stopWatching, 'function');
     });
 
-    it('should construct BlockFilter eth_newBlockFilter properly with callback', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct BlockFilter vap_newBlockFilter properly with callback', (done) => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
       const filter = new filters.BlockFilter((error, result) => {
         assert.equal(error, null);
@@ -59,18 +59,18 @@ describe('EthFilter', () => {
       assert.equal(typeof filter.stopWatching, 'function');
     });
 
-    it('should construct BlockFilter eth_newFilter properly without callback', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct BlockFilter vap_newFilter properly without callback', () => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.BlockFilter();
       assert.notEqual(typeof filter.filterId, 'undefined');
       assert.equal(typeof filter.watch, 'function');
       assert.equal(typeof filter.stopWatching, 'function');
     });
 
-    it('should construct PendingTransactionFilter eth_newPendingTransactionFilter properly with callback', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct PendingTransactionFilter vap_newPendingTransactionFilter properly with callback', (done) => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
       const filter = new filters.PendingTransactionFilter((error, result) => {
         assert.equal(error, null);
@@ -84,9 +84,9 @@ describe('EthFilter', () => {
       assert.equal(typeof filter.stopWatching, 'function');
     });
 
-    it('should construct PendingTransactionFilter eth_newPendingTransactionFilter properly without callback', () => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+    it('should construct PendingTransactionFilter vap_newPendingTransactionFilter properly without callback', () => {
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
       const filter = new filters.PendingTransactionFilter();
       assert.notEqual(typeof filter.filterId, 'undefined');
       assert.equal(typeof filter.watch, 'function');
@@ -94,10 +94,10 @@ describe('EthFilter', () => {
     });
 
     it('Filter watch and stopWatching should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.Filter({ fromBlock: 0, toBlock: 'latest', address: accounts[0] });
@@ -118,7 +118,7 @@ describe('EthFilter', () => {
           done();
         }, 1400);
 
-        eth.sendTransaction({
+        vap.sendTransaction({
           from: accounts[0],
           to: accounts[1],
           value: 3000,
@@ -132,10 +132,10 @@ describe('EthFilter', () => {
     });
 
     it('BlockFilter watch and stopWatching should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.BlockFilter();
@@ -156,7 +156,7 @@ describe('EthFilter', () => {
           done();
         }, 1400);
 
-        eth.sendTransaction({
+        vap.sendTransaction({
           from: accounts[0],
           to: accounts[1],
           value: 3000,
@@ -170,10 +170,10 @@ describe('EthFilter', () => {
     });
 
     it('PendingTransactionFilter watch and stopWatching should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
+      vap.accounts((accountsError, accounts) => {
         var count = 0; // eslint-disable-line
 
         const filter = new filters.PendingTransactionFilter();
@@ -194,7 +194,7 @@ describe('EthFilter', () => {
           done();
         }, 1400);
 
-        eth.sendTransaction({
+        vap.sendTransaction({
           from: accounts[0],
           to: accounts[1],
           value: 3000,
@@ -208,11 +208,11 @@ describe('EthFilter', () => {
     });
 
     it('contract usage watch and stopWatching should function properly', (done) => {
-      const eth = new Eth(provider);
-      const filters = new EthFilter(eth);
+      const vap = new Vap(provider);
+      const filters = new VapFilter(vap);
 
-      eth.accounts((accountsError, accounts) => {
-        eth.sendTransaction({
+      vap.accounts((accountsError, accounts) => {
+        vap.sendTransaction({
           from: accounts[0],
           gas: 3000000,
           data: '0x606060405234610000575b61010e806100186000396000f360606040526000357c01000000000000000000000000000000000000000000000000000000009004806360fe47b1146100435780636d4ce63c14610076575b610000565b346100005761005e6004808035906020019091905050610099565b60405180821515815260200191505060405180910390f35b3461000057610083610103565b6040518082815260200191505060405180910390f35b6000816000819055507f10e8e9bc5a1bde3dd6bb7245b52503fcb9d9b1d7c7b26743f82c51cc7cce917d60005433604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1600190505b919050565b600060005490505b9056',
@@ -222,7 +222,7 @@ describe('EthFilter', () => {
 
           // wait for tx to process, hopefully
           setTimeout(() => {
-            eth.getTransactionReceipt(txResult, (receiptError, receipt) => {
+            vap.getTransactionReceipt(txResult, (receiptError, receipt) => {
               assert.equal(txError, null);
               assert.equal(typeof receipt, 'object');
 
@@ -247,7 +247,7 @@ describe('EthFilter', () => {
                 assert.equal(Array.isArray(watchResult), true);
               });
 
-              eth.sendTransaction({
+              vap.sendTransaction({
                 from: accounts[0],
                 to: receipt.contractAddress,
                 gas: 3000000,
