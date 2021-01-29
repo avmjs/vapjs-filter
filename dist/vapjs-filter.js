@@ -113,16 +113,13 @@ function constructFilter(filterName, query) {
             }
 
             if (decodingError) {
-              watcher.reject(decodingError);
               watcher.callback(decodingError, null);
             } else {
               if (changeError) {
-                watcher.reject(changeError);
+                watcher.callback(changeError, null);
               } else if (Array.isArray(decodedChangeResults) && changeResult.length > 0) {
-                watcher.resolve(decodedChangeResults);
+                watcher.callback(changeError, decodedChangeResults);
               }
-
-              watcher.callback(changeError, decodedChangeResults);
             }
           });
         });
@@ -139,38 +136,42 @@ function constructFilter(filterName, query) {
     var callback = watchCallbackInput || function () {}; // eslint-disable-line
     var self = this;
     var id = Math.random().toString(36).substring(7);
-    var output = new Promise(function (resolve, reject) {
-      self.watchers[id] = { resolve: resolve, reject: reject, callback: callback, stop: false };
-    });
+    self.watchers[id] = { callback: callback, stop: false, stopWatching: function stopWatching() {
+        self.watchers[id].stop = true;
+      } };
 
-    output.stopWatching = function stopWatching() {
-      self.watchers[id].stop = true;
-    };
-
-    return output;
+    return self.watchers[id];
   };
 
   Filter.prototype.uninstall = function uninstallFilter(cb) {
     var self = this;
-    var callback = cb || function emptyCallback() {};
+    var callback = cb || null;
     self.watchers = Object.assign({});
     clearInterval(self.interval);
 
-    return new Promise(function (resolve, reject) {
+    var prom = new Promise(function (resolve, reject) {
       query.uninstallFilter(self.filterId, function (uninstallError, uninstallResilt) {
         if (uninstallError) {
           reject(uninstallError);
         } else {
           resolve(uninstallResilt);
         }
-
-        callback(uninstallError, uninstallResilt);
       });
     });
+
+    if (callback) {
+      prom.then(function (res) {
+        return callback(null, res);
+      })['catch'](function (err) {
+        return callback(err, null);
+      });
+    }
+
+    return callback ? null : prom;
   };
 
   Filter.prototype['new'] = function newFilter() {
-    var callback = function callback() {}; // eslint-disable-line
+    var callback = null; // eslint-disable-line
     var self = this;
     var filterInputs = [];
     var args = [].slice.call(arguments); // eslint-disable-line
@@ -184,7 +185,7 @@ function constructFilter(filterName, query) {
       filterInputs.push(Object.assign(self.options.defaultFilterObject, args[args.length - 1] || {}));
     }
 
-    return new Promise(function (resolve, reject) {
+    var prom = new Promise(function (resolve, reject) {
       // add complex callback
       filterInputs.push(function (setupError, filterId) {
         if (!setupError) {
@@ -193,13 +194,21 @@ function constructFilter(filterName, query) {
         } else {
           reject(setupError);
         }
-
-        callback(setupError, filterId);
       });
 
       // apply filter, call new.. filter method
       query['new' + filterName].apply(query, filterInputs);
     });
+
+    if (callback) {
+      prom.then(function (res) {
+        return callback(null, res);
+      })['catch'](function (err) {
+        return callback(err, null);
+      });
+    }
+
+    return callback ? null : prom;
   };
 
   return Filter;
